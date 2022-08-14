@@ -8,6 +8,8 @@ import org.hibernate.Transaction;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class CategoryDao implements DaoInterface<CategoryEntity> {
@@ -20,7 +22,12 @@ public class CategoryDao implements DaoInterface<CategoryEntity> {
 
         CriteriaBuilder bob = s.getCriteriaBuilder();
         CriteriaQuery q = bob.createQuery(CategoryEntity.class);
-        q.from(CategoryEntity.class);
+        Root<CategoryEntity> r = q.from(CategoryEntity.class);
+
+//        Predicate p1 = bob.greaterThan(r.get("id"), 2);
+//        Predicate p2 = bob.lessThan(r.get("id"), 6);
+//        Predicate p3 = bob.and(p1, p2);
+//        q.where(p3);
 
         cList = s.createQuery(q).getResultList();
 

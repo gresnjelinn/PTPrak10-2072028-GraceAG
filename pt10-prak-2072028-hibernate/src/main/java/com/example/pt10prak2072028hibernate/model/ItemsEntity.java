@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "items", schema = "dbprak04", catalog = "")
+@Table(name = "items", schema = "dbprak10", catalog = "")
 public class ItemsEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -20,8 +20,16 @@ public class ItemsEntity {
     @Column(name = "description")
     private String description;
     @Basic
-    @Column(name = "Category_id")
+    @Column(name = "category_id")
     private int categoryId;
+    @ManyToOne
+    @JoinColumns({@JoinColumn(name = "category_id", updatable = false, insertable = false, referencedColumnName = "id", nullable = false), @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)})
+    private CategoryEntity categoryByCategoryId;
+
+    @Override
+    public String toString() {
+        return id + " - " + name + ", " + price + ", " + categoryByCategoryId.getName();
+    }
 
     public int getId() {
         return id;
@@ -74,5 +82,13 @@ public class ItemsEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, price, description, categoryId);
+    }
+
+    public CategoryEntity getCategoryByCategoryId() {
+        return categoryByCategoryId;
+    }
+
+    public void setCategoryByCategoryId(CategoryEntity categoryByCategoryId) {
+        this.categoryByCategoryId = categoryByCategoryId;
     }
 }

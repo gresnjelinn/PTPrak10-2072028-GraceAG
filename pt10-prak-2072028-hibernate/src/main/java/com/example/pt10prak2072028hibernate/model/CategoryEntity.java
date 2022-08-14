@@ -4,13 +4,8 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "category", schema = "dbprak04", catalog = "")
+@Table(name = "category", schema = "dbprak10", catalog = "")
 public class CategoryEntity {
-    @Override
-    public String toString() {
-        return id + " - " + name;
-    }
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
@@ -18,6 +13,11 @@ public class CategoryEntity {
     @Basic
     @Column(name = "name")
     private String name;
+
+    @Override
+    public String toString() {
+        return id + " - " + name;
+    }
 
     public int getId() {
         return id;
